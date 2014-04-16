@@ -33,7 +33,7 @@ exports.find = function(req, res, next){
     }
     else {
       results.filters = req.query;
-      res.render('admin/categories/index', { data: { results: escape(JSON.stringify(results)) } });
+      res.render('admin/tutorials/index', { data: { results: escape(JSON.stringify(results)) } });
     }
   });
 };
@@ -48,7 +48,7 @@ exports.read = function(req, res, next){
       res.send(tutorial);
     }
     else {
-      res.render('admin/categories/details', { data: { record: escape(JSON.stringify(tutorial)) } });
+      res.render('admin/tutorials/details', { data: { record: escape(JSON.stringify(tutorial)) } });
     }
   });
 };
@@ -58,7 +58,7 @@ exports.create = function(req, res, next){
 
   workflow.on('validate', function() {
     if (!req.user.roles.admin.isMemberOf('root')) {
-      workflow.outcome.errors.push('You may not create categories.');
+      workflow.outcome.errors.push('You may not create tutorials.');
       return workflow.emit('response');
     }
 
@@ -115,7 +115,7 @@ exports.update = function(req, res, next){
 
   workflow.on('validate', function() {
     if (!req.user.roles.admin.isMemberOf('root')) {
-      workflow.outcome.errors.push('You may not update categories.');
+      workflow.outcome.errors.push('You may not update tutorials.');
       return workflow.emit('response');
     }
 
@@ -156,7 +156,7 @@ exports.delete = function(req, res, next){
 
   workflow.on('validate', function() {
     if (!req.user.roles.admin.isMemberOf('root')) {
-      workflow.outcome.errors.push('You may not delete categories.');
+      workflow.outcome.errors.push('You may not delete tutorials.');
       return workflow.emit('response');
     }
 

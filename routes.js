@@ -124,12 +124,12 @@ exports = module.exports = function(app, passport) {
   app.put('/admin/statuses/:id/', require('./views/admin/statuses/index').update);
   app.delete('/admin/statuses/:id/', require('./views/admin/statuses/index').delete);
 
-  //admin > categories
-  app.get('/admin/categories/', require('./views/admin/categories/index').find);
-  app.post('/admin/categories/', require('./views/admin/categories/index').create);
-  app.get('/admin/categories/:id/', require('./views/admin/categories/index').read);
-  app.put('/admin/categories/:id/', require('./views/admin/categories/index').update);
-  app.delete('/admin/categories/:id/', require('./views/admin/categories/index').delete);
+  //admin > tutorials
+  app.get('/admin/tutorials/', require('./views/admin/tutorials/index').find);
+  app.post('/admin/tutorials/', require('./views/admin/tutorials/index').create);
+  app.get('/admin/tutorials/:id/', require('./views/admin/tutorials/index').read);
+  app.put('/admin/tutorials/:id/', require('./views/admin/tutorials/index').update);
+  app.delete('/admin/tutorials/:id/', require('./views/admin/tutorials/index').delete);
 
   //admin > search
   app.get('/admin/search/', require('./views/admin/search/index').find);

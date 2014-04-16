@@ -13,13 +13,13 @@
       name: ''
     },
     url: function() {
-      return '/admin/categories/'+ (this.isNew() ? '' : this.id +'/');
+      return '/admin/tutorials/'+ (this.isNew() ? '' : this.id +'/');
     }
   });
 
   app.RecordCollection = Backbone.Collection.extend({
     model: app.Record,
-    url: '/admin/categories/',
+    url: '/admin/tutorials/',
     parse: function(results) {
       app.pagingView.model.set({
         pages: results.pages,

@@ -8,7 +8,7 @@
   app.Tutorial = Backbone.Model.extend({
     idAttribute: '_id',
     url: function() {
-      return '/admin/categories/'+ this.id +'/';
+      return '/admin/tutorials/'+ this.id +'/';
     }
   });
 
@@ -20,7 +20,7 @@
       errfor: {}
     },
     url: function() {
-      return '/admin/categories/'+ app.mainView.model.id +'/';
+      return '/admin/tutorials/'+ app.mainView.model.id +'/';
     }
   });
 
@@ -34,7 +34,7 @@
       name: ''
     },
     url: function() {
-      return '/admin/categories/'+ app.mainView.model.id +'/';
+      return '/admin/tutorials/'+ app.mainView.model.id +'/';
     },
     parse: function(response) {
       if (response.tutorial) {
@@ -115,7 +115,7 @@
         this.model.destroy({
           success: function(model, response) {
             if (response.success) {
-              location.href = '/admin/categories/';
+              location.href = '/admin/tutorials/';
             }
             else {
               app.deleteView.model.set(response);
