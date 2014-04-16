@@ -15,7 +15,7 @@ exports.find = function(req, res, next){
     filters.name = new RegExp('^.*?'+ req.query.name +'.*$', 'i');
   }
 
-  req.app.db.models.Category.pagedFind({
+  req.app.db.models.Tutorial.pagedFind({
     filters: filters,
     keys: 'pivot name',
     limit: req.query.limit,
@@ -39,16 +39,16 @@ exports.find = function(req, res, next){
 };
 
 exports.read = function(req, res, next){
-  req.app.db.models.Category.findById(req.params.id).exec(function(err, category) {
+  req.app.db.models.Tutorial.findById(req.params.id).exec(function(err, tutorial) {
     if (err) {
       return next(err);
     }
 
     if (req.xhr) {
-      res.send(category);
+      res.send(tutorial);
     }
     else {
-      res.render('admin/categories/details', { data: { record: escape(JSON.stringify(category)) } });
+      res.render('admin/categories/details', { data: { record: escape(JSON.stringify(tutorial)) } });
     }
   });
 };
@@ -72,37 +72,37 @@ exports.create = function(req, res, next){
       return workflow.emit('response');
     }
 
-    workflow.emit('duplicateCategoryCheck');
+    workflow.emit('duplicateTutorialCheck');
   });
 
-  workflow.on('duplicateCategoryCheck', function() {
-    req.app.db.models.Category.findById(req.app.utility.slugify(req.body.pivot +' '+ req.body.name)).exec(function(err, category) {
+  workflow.on('duplicateTutorialCheck', function() {
+    req.app.db.models.Tutorial.findById(req.app.utility.slugify(req.body.pivot +' '+ req.body.name)).exec(function(err, tutorial) {
       if (err) {
         return workflow.emit('exception', err);
       }
 
-      if (category) {
-        workflow.outcome.errors.push('That category+pivot is already taken.');
+      if (tutorial) {
+        workflow.outcome.errors.push('That tutorial+pivot is already taken.');
         return workflow.emit('response');
       }
 
-      workflow.emit('createCategory');
+      workflow.emit('createTutorial');
     });
   });
 
-  workflow.on('createCategory', function() {
+  workflow.on('createTutorial', function() {
     var fieldsToSet = {
       _id: req.app.utility.slugify(req.body.pivot +' '+ req.body.name),
       pivot: req.body.pivot,
       name: req.body.name
     };
 
-    req.app.db.models.Category.create(fieldsToSet, function(err, category) {
+    req.app.db.models.Tutorial.create(fieldsToSet, function(err, tutorial) {
       if (err) {
         return workflow.emit('exception', err);
       }
 
-      workflow.outcome.record = category;
+      workflow.outcome.record = tutorial;
       return workflow.emit('response');
     });
   });
@@ -129,21 +129,21 @@ exports.update = function(req, res, next){
       return workflow.emit('response');
     }
 
-    workflow.emit('patchCategory');
+    workflow.emit('patchTutorial');
   });
 
-  workflow.on('patchCategory', function() {
+  workflow.on('patchTutorial', function() {
     var fieldsToSet = {
       pivot: req.body.pivot,
       name: req.body.name
     };
 
-    req.app.db.models.Category.findByIdAndUpdate(req.params.id, fieldsToSet, function(err, category) {
+    req.app.db.models.Tutorial.findByIdAndUpdate(req.params.id, fieldsToSet, function(err, tutorial) {
       if (err) {
         return workflow.emit('exception', err);
       }
 
-      workflow.outcome.category = category;
+      workflow.outcome.tutorial = tutorial;
       return workflow.emit('response');
     });
   });
@@ -160,11 +160,11 @@ exports.delete = function(req, res, next){
       return workflow.emit('response');
     }
 
-    workflow.emit('deleteCategory');
+    workflow.emit('deleteTutorial');
   });
 
-  workflow.on('deleteCategory', function(err) {
-    req.app.db.models.Category.findByIdAndRemove(req.params.id, function(err, category) {
+  workflow.on('deleteTutorial', function(err) {
+    req.app.db.models.Tutorial.findByIdAndRemove(req.params.id, function(err, tutorial) {
       if (err) {
         return workflow.emit('exception', err);
       }

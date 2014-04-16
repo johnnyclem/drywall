@@ -5,7 +5,7 @@
 
   app = app || {};
 
-  app.Category = Backbone.Model.extend({
+  app.Tutorial = Backbone.Model.extend({
     idAttribute: '_id',
     url: function() {
       return '/admin/categories/'+ this.id +'/';
@@ -37,9 +37,9 @@
       return '/admin/categories/'+ app.mainView.model.id +'/';
     },
     parse: function(response) {
-      if (response.category) {
-        app.mainView.model.set(response.category);
-        delete response.category;
+      if (response.tutorial) {
+        app.mainView.model.set(response.tutorial);
+        delete response.tutorial;
       }
 
       return response;
@@ -130,7 +130,7 @@
     el: '.page .container',
     initialize: function() {
       app.mainView = this;
-      this.model = new app.Category( JSON.parse( unescape($('#data-record').html()) ) );
+      this.model = new app.Tutorial( JSON.parse( unescape($('#data-record').html()) ) );
 
       app.headerView = new app.HeaderView();
       app.detailsView = new app.DetailsView();
