@@ -1,7 +1,7 @@
 extends ../../../layouts/admin
 
 block head
-  title Categories / Details
+  title Tutorials / Details
 
 block feet
   script(src='/views/admin/tutorials/details.min.js?#{cacheBreaker}')
@@ -16,7 +16,7 @@ block body
   script(type='text/template', id='tmpl-header')
     div.page-header
       h1
-        a(href='/admin/tutorials/') Categories
+        a(href='/admin/tutorials/') Tutorials
         |  / <%- name %>
 
   script(type='text/template', id='tmpl-details')

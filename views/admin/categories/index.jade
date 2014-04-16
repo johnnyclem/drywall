@@ -1,7 +1,7 @@
 extends ../../../layouts/admin
 
 block head
-  title Manage Categories
+  title Manage Tutorials
 
 block neck
   link(rel='stylesheet', href='/views/admin/tutorials/index.min.css?#{cacheBreaker}')
@@ -24,7 +24,7 @@ block body
           input.form-control(name='pivot', type='text', placeholder='pivot', value!='<%= pivot %>')
           input.form-control(name='name', type='text', placeholder='name', value!='<%= name %>')
           button.btn.btn-primary.btn-add(type='button') Add New
-      h1 Categories
+      h1 Tutorials
 
   script(type='text/template', id='tmpl-filters')
     form.filters
